@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Hiiraan Foundation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #007bff;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            color: #fff;
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .nav ul li a.active {
+            font-weight: bold;
+            border-bottom: 2px solid #fff;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .login-btn, .donate-btn {
+            background: #fff;
+            color: #007bff;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 40px 20px;
+            text-align: center;
+            background-color: #fff;
+        }
+
+        .projects h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .project-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .project {
+            background-color: #e9e9e9;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #007bff;
+            color: #fff;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <div class="logo">HiiraanFoundation</div>
+    <nav class="nav">
+        <ul>
+            <li><a href="/api/v1/donate/home">Home</a></li>
+            <li><a href="/api/v1/donate/about">About Us</a></li>
+            <li><a href="/api/v1/donate/projects" class="active">Projects</a></li>
+            <li><a href="/api/v1/donate/causes">Causes</a></li>
+            <li><a href="/api/v1/donate/contact">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="buttons">
+        <button class="login-btn">Login</button>
+        <button class="donate-btn">Donate Now</button>
+    </div>
+</header>
+
+<!-- Projects Section -->
+<section class="projects">
+    <h1>Our Projects</h1>
+    <div class="project-container">
+        <div class="project">
+            <h2>Project 1: Shabelle River Flood Prevention</h2>
+            <p>This project focuses on implementing flood prevention measures along the Shabelle River to protect communities from seasonal flooding.</p>
+        </div>
+        <div class="project">
+            <h2>Project 2: Community Water Wells</h2>
+            <p>This initiative aims to provide clean and accessible water by building community water wells in rural areas.</p>
+        </div>
+        <div class="project">
+            <h2>Project 3: Educational Programs for Youth</h2>
+            <p>Supporting education through workshops and resources to empower young individuals in the region.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2024 Hiiraan Foundation. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

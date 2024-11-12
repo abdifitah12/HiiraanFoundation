@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Causes of Flooding - Hiiraan Foundation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #007bff;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            color: #fff;
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .nav ul li a.active {
+            font-weight: bold;
+            border-bottom: 2px solid #fff;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .login-btn, .donate-btn {
+            background: #fff;
+            color: #007bff;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Causes of Flooding Section */
+        .causes {
+            padding: 40px 20px;
+            background-color: #fff;
+            text-align: center;
+        }
+
+        .causes h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .cause-list {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .cause-item {
+            background-color: #e9e9e9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .cause-item h2 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #007bff;
+            color: #fff;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <div class="logo">HiiraanFoundation</div>
+    <nav class="nav">
+        <ul>
+            <li><a href="/api/v1/donate/home">Home</a></li>
+            <li><a href="/api/v1/donate/about">About Us</a></li>
+            <li><a href="/api/v1/donate/projects">Projects</a></li>
+            <li><a href="/api/v1/donate/causes" class="active">Causes</a></li>
+            <li><a href="/api/v1/donate/contact">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="buttons">
+        <button class="login-btn">Login</button>
+        <button class="donate-btn">Donate Now</button>
+    </div>
+</header>
+
+<!-- Causes of Flooding Section -->
+<section class="causes">
+    <h1>Causes of Flooding</h1>
+    <div class="cause-list">
+        <div class="cause-item">
+            <h2>1. Heavy Rainfall</h2>
+            <p>Prolonged or intense rainfall can saturate the ground, causing rivers and lakes to overflow and resulting in floods.</p>
+        </div>
+        <div class="cause-item">
+            <h2>2. River Overflow</h2>
+            <p>Rivers can overflow due to melting snow, intense rain, or storms, leading to flooding in nearby areas.</p>
+        </div>
+        <div class="cause-item">
+            <h2>3. Urbanization</h2>
+            <p>The expansion of cities reduces natural land for water absorption, leading to increased surface runoff and flooding.</p>
+        </div>
+        <div class="cause-item">
+            <h2>4. Deforestation</h2>
+            <p>Deforestation reduces the ground's ability to absorb water, increasing water runoff and the risk of floods.</p>
+        </div>
+        <div class="cause-item">
+            <h2>5. Poor Drainage Systems</h2>
+            <p>Inadequate drainage systems can lead to water accumulation, especially in urban areas, resulting in flooding.</p>
+        </div>
+        <div class="cause-item">
+            <h2>6. Climate Change</h2>
+            <p>Climate change leads to extreme weather and rising sea levels, both of which increase the risk of flooding.</p>
+        </div>
+        <div class="cause-item">
+            <h2>7. Dams and Levee Failures</h2>
+            <p>Failures of dams or levees can release large volumes of water, causing sudden and severe flooding.</p>
+        </div>
+        <div class="cause-item">
+            <h2>8. Storm Surges and Tidal Effects</h2>
+            <p>Storm surges and high tides push seawater inland, resulting in flooding in coastal areas.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2024 Hiiraan Foundation. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

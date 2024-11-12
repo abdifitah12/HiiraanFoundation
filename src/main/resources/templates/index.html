@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>HiiraanFoundation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Body styling */
+        body {
+            background-color: #f0f4f8;
+            color: #333;
+            padding-top: 70px; /* Offset for fixed navbar */
+        }
+
+        /* Navbar styling */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background-color: #007BFF;
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .navbar .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .navbar .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .navbar .nav-links a:hover {
+            color: #ddd;
+        }
+
+        .navbar .actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .navbar .actions .button {
+            padding: 10px 20px;
+            color: #007BFF;
+            background-color: #fff;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .navbar .actions .button:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+
+        /* Hide the menu icon on larger screens */
+        .navbar .menu-toggle {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .navbar .nav-links {
+                display: none;
+            }
+
+            /* Show menu icon only on mobile */
+            .navbar .menu-toggle {
+                display: block;
+                cursor: pointer;
+                font-size: 1.5em;
+                color: white;
+            }
+
+            /* Mobile menu styling */
+            .navbar .menu-toggle.active + .nav-links {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: #007BFF;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                padding: 10px 0;
+            }
+
+            .navbar .nav-links a {
+                padding: 10px;
+                text-align: center;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+                font-size: 1.1em;
+            }
+        }
+
+        /* Header */
+        h1 {
+            font-size: 2.5em;
+            color: #007BFF;
+            margin-top: 100px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Four columns on larger screens */
+            gap: 20px;
+            width: 100%;
+            padding: 20px;
+            margin: 0 auto;
+        }
+
+        /* Card Styling */
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #007BFF;
+        }
+
+        .card-description {
+            font-size: 1em;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        /* Button Styling */
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .button {
+            text-decoration: none;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #007BFF;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .button.donate {
+            background-color: #FF4B4B;
+        }
+
+        .button.donate:hover {
+            background-color: #cc0000;
+        }
+        /* Footer styling */
+        .footer {
+            background-color: #ffffff;
+            color: #333;
+            padding: 40px 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .footer .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .footer .footer-section {
+            flex: 1 1 250px;
+            margin: 10px 0;
+        }
+
+        .footer .footer-section h3 {
+            color: #007BFF;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .footer .footer-section p, .footer .footer-section a {
+            color: #333;
+            font-size: 0.9em;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .footer .footer-section a:hover {
+            color: #007BFF;
+        }
+
+        /* Contact Information */
+        .footer .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .footer .contact-info p {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9em;
+            color: #333;
+        }
+
+        /* Payment icons */
+        .footer .payment-icons img {
+            width: 40px;
+            margin-right: 5px;
+        }
+
+        /* Newsletter subscription */
+        .footer .newsletter input[type="email"] {
+            padding: 8px;
+            width: 70%;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+<div class="navbar">
+    <a href="#" class="logo">HiiraanFoundation</a>
+    <div class="menu-toggle">&#9776;</div>
+    <div class="nav-links">
+        <a href="/api/v1/donate/home">Home</a>
+        <a href="/api/v1/donate/about">About Us</a>
+        <a href="/api/v1/donate/projects">Projects</a> <!-- Verify if there's a mapping for "Projects" in the controller -->
+        <a href="/api/v1/donate/causes">Causes</a>
+        <a href="/api/v1/donate/contact">Contact</a> <!-- Ensure you have a "/contact" mapping in the controller if this page exists -->
+    </div>
+
+    <div class="actions">
+        <a href="#login" class="button">Login</a>
+        <a href="/api/v1/donate/donation" class="button donate">Donate Now</a>
+    </div>
+</div>
+
+<!-- Page Content -->
+<h1>Welcome to the Donation Platform</h1>
+<div class="grid-container">
+    <!-- Card 1 -->
+    <div class="card">
+        <img src="https://www.care-international.org/sites/default/files/styles/og_image/public/2022-12/Somalia_children%20in%20water%20point_RS93486_2022r.jpg?h=84071268&itok=XOO_3kwy" alt="Water is Life">
+        <div class="card-content">
+            <div class="card-title">Water is Life</div>
+            <div class="card-description">Help provide clean water to those in need.</div>
+            <div class="button-group">
+                <a href="more-info.html" class="button">Read More</a>
+                <a href="/api/v1/donate/donation" class="button donate">Donate Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+        <img src="https://www.hiiraan.com/2023/images/Nov/2023116638348554811201743.jpg" alt="Emergency Aid">
+        <div class="card-content">
+            <div class="card-title">Emergency Aid</div>
+            <div class="card-description">Support disaster relief and emergency services.</div>
+            <div class="button-group">
+                <a href="emergency-aid.html" class="button">Read More</a>
+                <a href="/donate" class="button donate">Donate Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+        <img src="https://amisom-au.org/wp-content/uploads/2016/06/27057480990_bcb55fff6a_z.jpg" alt="Food Aid">
+        <div class="card-content">
+            <div class="card-title">Food Aid</div>
+            <div class="card-description">Provide food assistance to families in need.</div>
+            <div class="button-group">
+                <a href="food-aid.html" class="button">Read More</a>
+                <a href="/donate" class="button donate">Donate Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card">
+        <img src="https://media-cldnry.s-nbcnews.com/image/upload/t_fit-560w,f_auto,q_auto:best/msnbc/Components/Photo_StoryLevel/071209/071209_africa_hmed_12p.jpg" alt="Education Support">
+        <div class="card-content">
+            <div class="card-title">Education Support</div>
+            <div class="card-description">Empower communities with educational resources.</div>
+            <div class="button-group">
+                <a href="education-support.html" class="button">Read More</a>
+                <a href="/donate" class="button donate">Donate Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="card">
+        <img src="https://media.msf.org/AssetLink/ul412hmu37831127dlu6xm663ggo588y.jpg" alt="Medical Aid">
+        <div class="card-content">
+            <div class="card-title">Medical Aid</div>
+            <div class="card-description">Provide essential healthcare and medical supplies.</div>
+            <div class="button-group">
+                <a href="medical-aid.html" class="button">Read More</a>
+                <a href="/donate" class="button donate">Donate Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="card">
+        <img src="https://floodlist.com/wp-content/uploads/2016/05/Fatahada-webiga-2.jpg" alt="Shelter Support">
+        <div class="card-content">
+            <div class="card-title">Shelter Support</div>
+            <div class="card-description">Help provide shelter for those in need.</div>
+            <div class="button-group">
+                <a href="shelter-support.html" class="button">Read More</a>
+                <a href="/donate" class="button donate">Donate Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 7 -->
+    <div class="card">
+        <img src="https://iadsb.tmgrup.com.tr/6b4fb9/0/0/0/0/980/650?u=https://idsb.tmgrup.com.tr/2017/05/02/14-million-somali-children-may-face-death-from-starvation-unicef-report-says-1493737426754.jpg" alt="Child Welfare">
+        <div class="card-content">
+            <div class="card-title">Child Welfare</div>
+            <div class="card-description">Support welfare programs for children.</div>
+            <div class="button-group">
+                <a href="child-welfare.html" class="button">Read More</a>
+                <a href="/donate" class="button donate">Donate Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 8 -->
+    <div class="card">
+        <img src="https://i.guim.co.uk/img/media/49abfbcb5de0e248435aca44a3efd1202f1bbb01/0_0_8256_4954/master/8256.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=fed03049657e84370da8f69b22fa5a20" alt="Mental Health">
+        <div class="card-content">
+            <div class="card-title">Mental Health</div>
+            <div class="card-description">Provide support for mental health services.</div>
+            <div class="button-group">
+                <a href="#" class="button">Read More</a>
+                <a href="/donate" class="button donate">Donate Now</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <!-- Logo and Contact Information -->
+        <div class="footer-section">
+            <img src="https://via.placeholder.com/150x50" alt="HiiraanFoundation Logo">
+            <p>Hiiraan Foundation is a 501(c)(3) charity organization. All donations are tax-deductible.</p>
+            <div class="contact-info">
+                <p>📞 972-871-8297</p>
+                <p>📧 hiiraan@hiiraanfoundation.org</p>
+                <p>📍 PO Box 165614, Irving, TX 75016</p>
+            </div>
+        </div>
+
+        <!-- Explore Links -->
+        <div class="footer-section">
+            <h3>Explore</h3>
+            <a href="#ways-to-help">Ways to Help</a>
+            <a href="#appeals">Appeals</a>
+            <a href="#causes">Causes</a>
+            <a href="#religious-dues">Religious Dues</a>
+            <a href="#news">News</a>
+            <a href="#events">Events</a>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <a href="#donation-policy">Donation Policy</a>
+            <a href="#privacy-policy">Privacy Policy</a>
+            <a href="#volunteer">Join as Volunteer</a>
+        </div>
+
+        <!-- Newsletter Subscription -->
+        <div class="footer-section newsletter">
+            <h3>Newsletter</h3>
+            <p>Sign up now to get daily news & updates from us</p>
+            <div style="display: flex;">
+                <input type="email" placeholder="Enter e-mail address">
+                <button type="submit">SUBSCRIBE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Icons and Social Media -->
+    <div class="footer-container" style="justify-content: center; margin-top: 20px;">
+        <div class="payment-icons">
+            <img src="https://via.placeholder.com/40x25?text=AmEx" alt="American Express">
+            <img src="https://via.placeholder.com/40x25?text=Visa" alt="Visa">
+            <img src="https://via.placeholder.com/40x25?text=MasterCard" alt="MasterCard">
+            <img src="https://via.placeholder.com/40x25?text=PayPal" alt="PayPal">
+            <img src="https://via.placeholder.com/40x25?text=ApplePay" alt="Apple Pay">
+            <img src="https://via.placeholder.com/40x25?text=GooglePay" alt="Google Pay">
+        </div>
+    </div>
+</footer>
+
+<!-- Bottom Footer -->
+<div class="bottom-footer">
+    <p>© Copyright 2024 by Hiiraan Foundation | Powered by HiiraanTech</p>
+    <div class="social-media">
+        <a href="#" title="Twitter">🐦</a>
+        <a href="#" title="Instagram">📸</a>
+        <a href="#" title="Facebook">📘</a>
+        <a href="#" title="YouTube">▶️</a>
+    </div>
+</div>
+<script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+</script>
+
+</body>
+</html>

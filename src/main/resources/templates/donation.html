@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate to Hiiraan Foundation</title>
+    <link rel="stylesheet" href="/css/style.css"> <!-- Optional external CSS file -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f4f8;
+            color: #333;
+        }
+
+        .donation-container {
+            text-align: center;
+            max-width: 500px;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #007BFF;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"], input[type="email"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .donate {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #fff;
+            background-color: #FF4B4B;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            width: 100%;
+        }
+
+        .donate:hover {
+            background-color: #cc0000;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+<div class="donation-container">
+    <h1>Support Hiiraan Foundation</h1>
+    <p>Your generous contribution can help make a difference. Every donation counts!</p>
+
+    <!-- Donation Form -->
+    <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="Enter your name" required>
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
+    </div>
+
+    <div class="form-group">
+        <label for="amount">Donation Amount (USD)</label>
+        <input type="number" id="amount" placeholder="Enter amount" min="1" required>
+    </div>
+
+    <button id="donateButton" class="donate">Donate Now</button>
+</div>
+
+<script>
+    // Stripe Integration
+    const donateButton = document.getElementById('donateButton');
+
+    donateButton.addEventListener('click', async () => {
+        // Display processing state
+        donateButton.innerHTML = "Processing...";
+        donateButton.disabled = true;
+
+        // Get the input values
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const amount = document.getElementById('amount').value;
+
+        if (!name || !email || !amount) {
+            alert("Please fill in all fields.");
+            donateButton.innerHTML = "Donate Now";
+            donateButton.disabled = false;
+            return;
+        }
+
+        // Send data to backend to create Stripe session
+        const response = await fetch('/create-checkout-session', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name, email, amount: parseInt(amount) * 100 }) // amount in cents
+        });
+
+        const checkoutUrl = await response.text();
+        window.location.href = checkoutUrl;
+    });
+</script>
+</body>
+</html>
